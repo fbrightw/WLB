@@ -7,16 +7,18 @@ import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import AddIcon from '@mui/icons-material/Add';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
@@ -121,6 +123,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -143,11 +146,11 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
+              title="New Page"
+              icon={<AddIcon />}
               selected={selected}
               setSelected={setSelected}
+              to='/modal'
             />
 
             <Typography
