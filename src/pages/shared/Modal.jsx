@@ -1,40 +1,57 @@
-import { useState } from "react";
+import { useState } from 'react'
 import { createPortal } from "react-dom";
-import { Box, Typography } from "@mui/material";
+import {
+    Dialog, 
+    DialogTitle, 
+    DialogContentText, 
+    DialogContent,
+    Button, 
+    TextField,
+    DialogActions
+} from "@mui/material";
 
 
+export default function ModalPanel() {
 
-export default function Modal(isOpen) {
+    const [isOpen, setIsOpen] = useState(true);
 
-    const [isOpen1, setIsOpen] = useState(isOpen);
+    function linkToNewPage() {
+
+    }
 
     const handleClose = () => setIsOpen(false);
 
     return (
-            createPortal(
-                <div style={{width: "30%", height: "30%", backgroundColor: "white"}}>
-            
-                </div>
-                ,
-
-            document.getElementById('modal')
-            )
-        
+        <div>
+            {createPortal(
+                <Dialog
+                    open={isOpen}
+                    onClose={handleClose}
+                    // aria-labelledby="modal-modal-title"
+                    // aria-describedby="modal-modal-description"
+                >
+                   <DialogTitle>New Page</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            To create new page give the name and type of content
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="Email Address"
+                            type="email"
+                            fullWidth
+                            variant="standard"
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button onClick={linkToNewPage}>Create</Button>
+                    </DialogActions>
+                </Dialog>,
+                document.body
+            )}
+        </div>
     )
 }
-
-// <Modal
-                //     open={isOpen}
-                //     onClose={handleClose}
-                //     aria-labelledby="modal-modal-title"
-                //     aria-describedby="modal-modal-description"
-                // >
-                //     <Box>
-                //         <Typography id="modal-modal-title" variant="h6" component="h2">
-                //             Text in a modal
-                //         </Typography>
-                //         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                //             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                //         </Typography>
-                //     </Box>
-                // </Modal>,

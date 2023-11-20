@@ -37,11 +37,6 @@ const routes = [
     path: "/geography",
     element: <Geography />
   },
-  {
-    path: "/modal",
-    element: <Modal />
-  }
-
 ]
 
 
@@ -57,13 +52,11 @@ function App() {
         <CssBaseline />
         <div className="app">
           <Sidebar isSidebar={isSidebar} />
-          <button onClick={() => setIsOpen(true)}></button>
-          <Modal isOpen={isOpen} />
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
-              {routes.map(el => (
-                <Route path={el.path} element={el.element} />
+              {routes.map((el, index) => (
+                <Route key={index} path={el.path} element={el.element} />
               ))}
             </Routes>
           </main>

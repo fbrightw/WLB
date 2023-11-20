@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -13,11 +13,13 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import AddIcon from '@mui/icons-material/Add';
+import ModalPanel from "../shared/Modal";
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, to, icon, selected, setSelected, showModal }) => {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [modal, setModal] = useState(false);
 
   return (
     <MenuItem
@@ -25,11 +27,20 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       style={{
         color: colors.grey[100],
       }}
-      onClick={() => setSelected(title)}
+      onClick={() => {
+        if (showModal) {
+          setModal(true);
+        };
+        setSelected(title)}
+      }
       icon={icon}
     >
       <Typography>{title}</Typography>
       <Link to={to} />
+      {modal ? 
+        <ModalPanel isOpen={modal} /> 
+        : null
+      }
     </MenuItem>
   );
 };
@@ -79,7 +90,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                  WLB
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -93,9 +104,9 @@ const Sidebar = () => {
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
-                  width="100px"
+                  width="120px"
                   height="100px"
-                  // src={`../../assets/user.png`}
+                  src={`../../assets/maybel.jpg`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -107,9 +118,6 @@ const Sidebar = () => {
                   sx={{ m: "10px 0 0 0" }}
                 >
                   Gasanova Aynur 
-                </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
                 </Typography>
               </Box>
             </Box>
@@ -150,7 +158,7 @@ const Sidebar = () => {
               icon={<AddIcon />}
               selected={selected}
               setSelected={setSelected}
-              to='/modal'
+              showModal={true}
             />
 
             <Typography
