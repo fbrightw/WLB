@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -13,13 +13,61 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import AddIcon from '@mui/icons-material/Add';
-import ModalPanel from "../shared/Modal";
+import ModalPanel from "../../shared/Modal";
+import { useNavigate } from 'react-router-dom';
 
-const Item = ({ title, to, icon, selected, setSelected, showModal }) => {
+let itemsArray = [
+  {
+    title: "Calendar",
+    to: "/calendar",
+    icon: <CalendarTodayOutlinedIcon />
+  },
+  {
+    title: "Bar Chart",
+    to: "/bar",
+    icon: <BarChartOutlinedIcon />
+  },
+  {
+    title: "Line chart",
+    to: "/line",
+    icon: <TimelineOutlinedIcon />
+  },
+  {
+    title: "Geography chart",
+    to: "/geography",
+    icon: <MapOutlinedIcon />
+  },
+  {
+    title: "Contact me",
+    to: "/form",
+    icon: <PersonOutlinedIcon />
+  },
+  {
+    title: "New Page",
+    icon: <AddIcon />,
+    to: ""
+  }
+]
+
+const Item = ({ title, to, icon, selected, setSelected, pushNewPage }) => {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [modal, setModal] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [toNewPage, setToNewPage] = useState(to);
+
+  const navigate = useNavigate();
+
+  const setNewTitle = (e, name, type) => {
+    let obj = {
+      title: name,
+      to: `/${type}/${name}`,
+      // icon: <AddIcon />
+    };
+    pushNewPage(obj);
+    setSelected(name);
+    navigate(`/${type}/${name}`)
+  }
 
   return (
     <MenuItem
@@ -28,18 +76,24 @@ const Item = ({ title, to, icon, selected, setSelected, showModal }) => {
         color: colors.grey[100],
       }}
       onClick={() => {
-        if (showModal) {
-          setModal(true);
-        };
-        setSelected(title)}
+        if (!to) {
+          setIsOpenModal(true);
+        }
+        else {
+          setSelected(title)}
+        }
       }
       icon={icon}
     >
       <Typography>{title}</Typography>
-      <Link to={to} />
-      {modal ? 
-        <ModalPanel isOpen={modal} /> 
-        : null
+      <Link to={toNewPage} />
+      {isOpenModal ? 
+        <ModalPanel
+          isOpen={isOpenModal}
+          setNewTitle={setNewTitle}
+          setIsOpen={setIsOpenModal}
+        /> :
+        null
       }
     </MenuItem>
   );
@@ -50,6 +104,13 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  const [items, setItems] = useState(itemsArray);
+
+  const pushNewPage = (obj) => {
+    items.push(obj);
+    setItems(items);
+  }
 
   return (
     <Box
@@ -139,63 +200,15 @@ const Sidebar = () => {
             >
               Pages
             </Typography>
-            <Item
-              title="Profile Form"
-              to="/form"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="New Page"
-              icon={<AddIcon />}
-              selected={selected}
-              setSelected={setSelected}
-              showModal={true}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Charts
-            </Typography>
-            <Item
-              title="Bar Chart"
-              to="/bar"
-              icon={<BarChartOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Geography Chart"
-              to="/geography"
-              icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            {items.map(el => (
+                <Item 
+                  {...el}
+                  pushNewPage={pushNewPage}
+                  selected={selected}
+                  setSelected={setSelected}
+                  showModal={el?.showModal}
+                />
+            ))}
           </Box>
         </Menu>
       </ProSidebar>
