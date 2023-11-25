@@ -9,7 +9,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 
 
-const capitalizedString = (str) => `${str.charAt(0).toUpperCase()}${(str.slice(1))}`
+export const capitalizedString = (str) => `${str.charAt(0).toUpperCase()}${(str.slice(1))}`
 
 
 export default function TextPage() {

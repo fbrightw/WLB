@@ -178,7 +178,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Gasanova Aynur 
+                  Aynur 
                 </Typography>
               </Box>
             </Box>
