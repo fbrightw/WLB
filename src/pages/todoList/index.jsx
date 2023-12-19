@@ -6,24 +6,18 @@ import {
     ListItem, 
     List, 
     ListItemButton, 
-    Typography, 
     ListItemIcon,
     Checkbox,
     ListItemText
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import { tokens } from "../../theme";
-import { useTheme } from "@emotion/react";
+import GridHeader from "../../shared/GridHeader";
 
 
 export default function TodoList() {
 
     const [value, setValue] = useState();
     const [bulletedList, setBulletedList] = useState([]);
-
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    const typography = tokens(theme.typography.family)
 
     const add = (e) => {
         setBulletedList([...bulletedList, value]);
@@ -54,11 +48,7 @@ export default function TodoList() {
 
     return (
         <>
-            <Box textAlign="center">
-                <Typography variant="h3">
-                    To Do List
-                </Typography>
-            </Box>
+            <GridHeader title="To Do List" />
             <Box display="flex">
                 <InputBase 
                     sx={{ ml: 2, flex: 1 }} 

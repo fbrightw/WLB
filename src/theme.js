@@ -143,6 +143,9 @@ export const themeSettings = (mode) => {
             background: {
               default: colors.primary[500],
             },
+            typographyColor: {
+              default: "black"
+            }
           }
         : {
             // palette values for light mode

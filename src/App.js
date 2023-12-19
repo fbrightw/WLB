@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Topbar from "./pages/global/Topbar";
-import Sidebar from "./pages/global/Sidebar";
+import Topbar from "./pages/layout/Topbar";
+import Sidebar from "./pages/layout/Sidebar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import {routes} from "./shared/routes";
+import { routes } from "./shared/routes";
 
 function App() {
   const [theme, colorMode] = useMode();

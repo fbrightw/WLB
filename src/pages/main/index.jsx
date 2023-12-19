@@ -4,13 +4,14 @@ import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import BookIcon from '@mui/icons-material/Book';
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
 import Header from "../../components/Header";
-import StatBox from "../../components/StatBox";
+import StatBox from "../../shared/StatBox";
 import TodoList from "../todoList";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
+import GridHeader from "../../shared/GridHeader";
 
 const Main = () => {
   const theme = useTheme();
@@ -20,7 +21,7 @@ const Main = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Work-Life balance" subtitle="Welcome to your organized life" />
+        <Header title="Work-Life balance" subtitle="Welcome to your organized life"/>
       </Box>
 
       {/* GRID & CHARTS */}
@@ -28,7 +29,7 @@ const Main = () => {
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
         gridRow={"100px 200px" }
-        gap="50px"
+        gap="20px"
       >
         {/* Row 1 */}
         <Box
@@ -38,6 +39,7 @@ const Main = () => {
           justifyContent="center"
           gridArea="water"
           gridColumn="span 4"
+          borderRadius="5px"
         >
           {/* quantity of water */}
           <StatBox
@@ -47,7 +49,7 @@ const Main = () => {
             increase="14%"
             icon={
               <WaterDropIcon
-                sx={{ color: colors.blueAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.blueAccent[600], fontSize: "40px"}}
               />
             }
           />
@@ -59,6 +61,7 @@ const Main = () => {
           justifyContent="center"
           gridArea="yoga"
           gridColumn="span 4"
+          borderRadius="5px"
         >
           {/* yoga time */}
           <StatBox
@@ -68,7 +71,7 @@ const Main = () => {
             increase="+21%"
             icon={
               <SelfImprovementIcon
-                sx={{ color: colors.blueAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.blueAccent[600], fontSize: "40px"}}
               />
             }
           />
@@ -80,6 +83,7 @@ const Main = () => {
           justifyContent="center"
           gridArea="books"
           gridColumn="span 4"
+          borderRadius="5px"
         >
           <StatBox
             title="32,441"
@@ -88,20 +92,20 @@ const Main = () => {
             increase="+5%"
             icon={
               <BookIcon
-                sx={{ color: colors.blueAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.blueAccent[600], fontSize: "40px"}}
               />
             }
           />
         </Box>
 
-
         {/* Row 2 */}
         <Box 
-          gridColumn="span 8"
-          gridRow="span 8"
+          gridColumn="span 6"
+          gridRow="span 4"
         >
+          <GridHeader title="Calendar"/>
           <FullCalendar 
-            height="75vh"
+            // height="75vh"
             plugins={[
               dayGridPlugin,
               timeGridPlugin,
@@ -125,7 +129,7 @@ const Main = () => {
             display="flex"
             flexDirection="column"
             borderRadius="3px"
-            gridColumn="span 4"
+            gridColumn="span 6"
             gridRow="span 4"
           >
             <TodoList />
